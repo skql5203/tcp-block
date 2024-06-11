@@ -51,7 +51,7 @@ void rst(pcap_t* pcap, const unsigned char* packet, struct libnet_ipv4_hdr* ip_h
     chk_addr.pro = IPPROTO_TCP;
     chk_addr.tl = htons(sizeof(struct libnet_tcp_hdr));
 
-    uint32_t tcp_checksum = CheckSum((unsigned short*)new_tcp_hdr, sizeof(struct libnet_tcp_hdr)) + CheckSum((unsigned short*)&chk_addr, sizeof(check_s));
+    unsigned int tcp_checksum = CheckSum((unsigned short*)new_tcp_hdr, sizeof(struct libnet_tcp_hdr)) + CheckSum((unsigned short*)&chk_addr, sizeof(check_s));
     new_tcp_hdr->th_sum = (tcp_checksum & 0xffff) + (tcp_checksum >> 16);
     new_ip_hdr->ip_sum = CheckSum((unsigned short*)new_ip_hdr, ih_len);
 
